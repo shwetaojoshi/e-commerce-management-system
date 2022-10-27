@@ -2,6 +2,8 @@ package com.qa.ecommerce.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.ecommerce.entity.Customer;
+import com.qa.ecommerce.exception.AuthenticationException;
 import com.qa.ecommerce.exception.CustomerAlreadyExistsException;
 import com.qa.ecommerce.exception.CustomerNotFoundException;
 import com.qa.ecommerce.service.CustomerServiceImpl;
@@ -62,7 +65,7 @@ public class CustomerController {
 	
 	
 	@PostMapping("/customers")
-	public ResponseEntity<?> addCustomer(@RequestBody Customer customer) throws CustomerAlreadyExistsException{
+	public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer) throws CustomerAlreadyExistsException{
 		try {
 			Customer addedCustomer = this.customerService.addCustomer(customer);
 			System.out.println("added customer" + addedCustomer);
@@ -108,6 +111,16 @@ public class CustomerController {
 		}
 		return responseEntity;
 	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<Customer> authenticate(@RequestBody Customer customer) throws AuthenticationException{
+		
+		Customer autheticatedCustomer = this.customerService.autheticate(customer.getEmailId(), customer.getPassword());
+			
+		return new ResponseEntity<Customer>(autheticatedCustomer, HttpStatus.OK);
+	}
+	
+	
 	
 	
 	/*
