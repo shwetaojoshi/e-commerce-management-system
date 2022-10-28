@@ -2,6 +2,10 @@ package com.qa.ecommerce.controller.test;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -24,17 +28,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.qa.ecommerce.controller.OrderController;
-import com.qa.ecommerce.entity.Customer;
 import com.qa.ecommerce.entity.Order;
 import com.qa.ecommerce.entity.Product;
-import com.qa.ecommerce.service.OrderService;
 import com.qa.ecommerce.service.OrderServiceImpl;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderControllerTest {
@@ -92,7 +92,7 @@ public class OrderControllerTest {
 				        .contentType(MediaType.APPLICATION_JSON)
 				        .content(asJsonString(order1)))
 		        .andExpect(status().isCreated())
-		        .andExpect(jsonPath("$.orderName").value("order1"));
+		        .andExpect(jsonPath("$.orderId").value(11));
 	}
 	
 	@Test
@@ -103,19 +103,22 @@ public class OrderControllerTest {
 				        .accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$[1].orderName").value("order2"));
+				.andExpect(jsonPath("$[1].orderId").value(22));
 	}
 
 	
 	public static String asJsonString(Object obj) {
-		ObjectMapper Obj = new ObjectMapper();
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new ParameterNamesModule())
+        .registerModule(new Jdk8Module())
+        .registerModule(new JavaTimeModule());
 		String jsonStr = null;
 		 
         // Try block to check for exceptions
         try {
  
             // Getting organisation object as a json string
-            jsonStr = Obj.writeValueAsString(obj);
+            jsonStr = mapper.writeValueAsString(obj);
  
             // Displaying JSON String on console
             System.out.println(jsonStr);

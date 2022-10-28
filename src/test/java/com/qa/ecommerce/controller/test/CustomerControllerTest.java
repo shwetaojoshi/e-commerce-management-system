@@ -57,9 +57,9 @@ public class CustomerControllerTest {
 		 * Create the necessary instances
 		 * Create dummy data
 		 */
-		customer1 = new Customer(11,"customer1","customer1@gmail.com","34523432","address1" , "pass1");
-		customer2 = new Customer(22,"customer2","customer2@gmail.com","45645645","address2" , "pass2");
-		customer3 = new Customer(33,"customer3","customer3@gmail.com","55645645","address3" , "pass3");
+		customer1 = new Customer(1,"customer1","customer1@gmail.com","7188787878","Adress1" ,"Cust1@123");
+		customer2 = new Customer(2,"customer2","customer2@gmail.com","7188787878","Adress2" ,"Cust2@123");
+		customer3 = new Customer(3,"customer3","customer3@gmail.com","7188787878","Adress3" ,"Cust3@123");
 		customerList = Arrays.asList(customer1,customer2,customer3);
 		
 		mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();

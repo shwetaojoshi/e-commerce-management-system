@@ -1,54 +1,55 @@
 # e-commerce-management-system
 
+The objective of this assignment is to create a web service which displays customer , products and orders. You can add customer , products and orders . one can fetch the data for the particular customers order.
 
-This objective of this assignment is to create a web page which displays movies with movie title, poster , description, directorname and the rating. The user can favourite the movie by clicking the favourite icon . The use can also search for a specific movie using the search option in the header. The user can see all his favourite movies by clicking on Favourite Movies link in the header
+
 
 ### Problem Statement
 
-Create a web page using using Bootstrap with the below mentioned components
-1. Navbar 
-    This should contain the company logo ( logo.png is provided under images folder, use the same)
-    Application Title ( My Favourite Movies )
-    A Bootstrap form with a search box and a button
-
-2. section with container class
-3. card component for displaying each movie
+Create webservices using SpringBoot with the following mentioned components:
+1.mySQL database, to store data about the customers,orders and products.
+2.customers and orders and products entities.
+3.components to edit and display data from the database.
 
 
 ### Tech Stack 
 
 This application is build using the following tech stack
+1.Java SE 17
+2.Maven 3.8.6
+3.SpringBoot 2.7.5
+4.MySQL 8.0.31 
 
 
 ### Steps
 
-1. Add some movies data in db.json ( sample movie object is provided in db.json)
-2. After adding the movies, run the command `npm run dbserver`
-3. Fetch the movies from db.json using fetch API at the API URL `http://localhost:3000/movies`
-4. Display these movies in index.html using Bootstrap card component ( as shown in the image )
-5. When the user clicks on the favourite icon , add the movie to the favouties using fetch API Post request to the API URL `http://localhost:3000/favourites`
-6. If the movie is already favourited, if the user clicks on favourite icon, remove the movie from the favourites in db.json and update the UI
-7. If user searches for a specific movie by entering the movie name and clicks on submit button, update the UI with the searched movies list
+1. Register the Customers.
+2. Fetch the customers using API URL `http://localhost:8080/customers`
+3. Fetch the products using API URL `http://localhost:8080/products`
+4. Fetch the orders using API URL `http://localhost:8080/orders`
 
 # End Points
 ```bash
-http://localhost:8083/api/v1/employees
+http://localhost:8083/api/v1/customers
+http://localhost:8083/api/v1/products
+http://localhost:8083/api/v1/orders
+
 ```
 
 
 Design the page as per the image
 
-### Home Page
+### GET
 
 ![Image Not Found](/images/swagger1.PNG)
 
-### Search Results
+### POST
 
-![Image Not Found](/images/SearchOutputScreen.png)
+![Image Not Found](/images/swagger2post.PNG)
 
-### Favourite Results
+### PUT
 
-![Image Not Found](/images/FavouriteMovies_Output_Screen.png)
+![Image Not Found](/images/swagger3put.PNG)
 
 ### Instructions
 
